@@ -122,7 +122,7 @@
         var obj = {
             name:$("#name-input").val(),
             photo:$("#url-input").val(),
-            score: [$("#q1-input").val(),
+            scores: [$("#q1-input").val(),
             $("#q2-input").val(),
             $("#q3-input").val(),
             $("#q4-input").val(),
@@ -139,7 +139,8 @@
 
         $.post("/matchfriend", obj)
         .then(function(data) {
-          alert("Adding character...");
+          console.log(data)
+         
         });
 
 
