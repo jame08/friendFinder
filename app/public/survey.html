@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -20,6 +21,7 @@
         <hr>
 
         <h2>About You</h2>
+       
         <div id="results-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
         
@@ -31,7 +33,7 @@
                 </div>
                 <div class="modal-body">
                   <h2 id="match-name"></h2>
-                  <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                  <img id="match-img" src="" alt="" width=30px>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -45,11 +47,11 @@
         <form>
             <div class="form-group">
                 <label for="Name" >Name</label>
-                <input type="text" class="form-control " id="name-input" placeholder="Your Nama">
+                <input type="text" class="form-control test " id="name-input" placeholder="Your Nama">
             </div>
             <div class="form-group">
                 <label for=img-url">Picture URL</label>
-                <input type="text" class="form-control " id="url-input" placeholder="Picture URL">
+                <input type="text" class="form-control test " id="url-input" placeholder="Picture URL">
             </div>
         </form>
 
@@ -57,34 +59,34 @@
         <div class="form-group">
 
                 <label for="Question1">1. How much of a extroverted are you ?</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q1-input" value = "0">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q1-input" value = "0">
 
                 <label for="Question2">2. Going on a hike sounds more apealing than goind for a drink. </label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q2-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q2-input" value = "0">
 
                 <label for="Question3">3. Alcohol over Water</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q3-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q3-input" value = "0">
 
                 <label for="Question4">4. Delivery and chill over a night out.</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q4-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q4-input" value = "0">
 
                 <label for="Question5">5. Dogs over Cats </label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q5-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q5-input" value = "0">
 
                 <label for="Question6">6. Iphone over Android (This is a relevant question )</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q6-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q6-input" value = "0">
 
                 <label for="Question7">7. Traveling is the best ESCAPE</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q7-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q7-input" value = "0">
 
                 <label for="Question8">8. Example select</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q8-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q8-input" value = "0">
 
                 <label for="Question9">9. Example select</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q9-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q9-input" value = "0">
 
                 <label for="Question10">10. Example select</label>
-                <input type="range" class="custom-range form-control" min="1" max="5" step="1" id="q10-input">
+                <input type="range" class="custom-range form-control" min="0" max="5" step="1" id="q10-input" value = "0">
               </div>
 
               <button type="submit" class="btn btn-primary btn-lg btn-block" id ="submit-form">Submit Form</button>
@@ -98,7 +100,7 @@
                         <a class="link" href="/api/friends">API Friend List|</a>
       
       
-                        <a class="link" href="#">GitHub Repo</a>
+                        <a class="link" href="https://github.com/jame08">GitHub Repo</a>
                     </li>
       
                 </ul>
@@ -119,6 +121,19 @@
 
     $("#submit-form").on("click", function(){
 
+
+         function validateForm() {
+        var isValid = true;
+        $(".test").each(function() {
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+      }
+
+      
+
+
         var obj = {
             name:$("#name-input").val(),
             photo:$("#url-input").val(),
@@ -134,14 +149,27 @@
             $("#q10-input").val()]
 
         }
-    
-      console.log(obj)
 
-        $.post("/matchfriend", obj)
+         $.post("/matchfriend", obj)
         .then(function(data) {
           console.log(data)
+          
+          $("#match-name").text(data.name);
+          $("#match-img").attr("src", data.photo);
+          $("#results-modal").modal("toggle");
+
          
         });
+
+      
+
+    
+
+
+    
+   
+
+   
 
 
     })

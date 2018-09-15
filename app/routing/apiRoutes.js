@@ -28,7 +28,7 @@ friends.forEach(x => arrayOfFriends.push({name: x.name, scores: x.scores.reduce(
 bestMatch = friendfinder(userScore, arrayOfFriends);
 
 //Send the Best Match to the Client-side 
-res.send(bestMatch)
+res.send(bestMatch);
 
 //Push the new user to the friends obj array
 friends.push(req.body)
